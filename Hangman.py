@@ -8,16 +8,16 @@ loss_counter = 0
 
 def list_duplicates_of(seq, item):
     start_at = -1
-    loc = []
+    locs = []
     while True:
         try:
             loc = seq.index(item, start_at+1)
         except ValueError:
             break
         else:
-            loc.append(loc)
+            locs.append(loc)
             start_at = loc
-    return loc
+    return locs
 
 # fills the wordList (Convert the string to a list)
 
