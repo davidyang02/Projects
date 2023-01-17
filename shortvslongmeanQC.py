@@ -1,14 +1,3 @@
-# Mean Reversion Strategy
-# Simple moving average, upper band, lower band
-# upper band = middle band + 2x daily std
-# lower band = middle band + 2x daily std
-# VECTORBT
-
-# airline stocks based on airport travel
-
-
-
-
 # region imports
 from AlgorithmImports import *
 # endregion
