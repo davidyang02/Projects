@@ -45,7 +45,7 @@ for c in cleantext:
    
    key_letter = cleankey[key_pos]                  # this identifies the letter of the key to use
    
-   row = ord(key_letter) - ord_A                     # this can be done with a formula instead of a table
+   row = ord(key_letter) - ord_A 
    col =ord(c) - ord_A
    encrypted = encrypted + table[row][col]
 
