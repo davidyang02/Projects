@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Backtest Results</title>
+
+    <!-- Include Plotly.js CDN for rendering charts -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+    <!-- Bootstrap CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        /* Custom styles */
+        body {
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            margin-top: 30px;
+        }
+
+        .results-section {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .chart-container {
+            height: 80vh; /* Allow the chart to fill most of the screen */
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Backtest Web App</a>
+        </div>
+    </nav>
+
+    <!-- Main Container for Results -->
+    <div class="container">
+        <div class="results-section">
+            <h2 class="text-center mb-4">Backtest Results for {{ stock_symbol }}</h2>
+            
+            <!-- Display the Backtest Chart (Buy/Sell signals) -->
+            <h3 class="mt-4">Backtest Chart</h3>
+            <div class="chart-container">
+                <div class="chart">{{ backtest_chart | safe }}</div> <!-- Backtest Chart -->
+            </div>
+
+            <!-- Display the Portfolio vs Benchmark Chart -->
+            <h3 class="mt-4">Portfolio vs Benchmark</h3>
+            <div class="chart-container">
+                <div class="chart">{{ profit_chart | safe }}</div> <!-- Profit Chart -->
+            </div>
+
+            <!-- Display the total profit -->
+            <h3 class="mt-4">Total Profit/Loss: ${{ "%.2f" % total_profit }}</h3>
+
+            <!-- Display the final cash and portfolio value -->
+            <h4>Final Cash Position: ${{ "%.2f" % final_cash }}</h4>
+            <h4>Total Portfolio Value: ${{ "%.2f" % portfolio_value }}</h4>
+
+            <!-- Display each trade's profit -->
+            <table class="table table-bordered mt-3">
+                <thead>
+                    <tr>
+                        <th>Buy Price</th>
+                        <th>Sell Price</th>
+                        <th>Shares</th>
+                        <th>Profit/Loss</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for trade in trades %}
+                        <tr>
+                            <td>${{ "%.2f" % trade['Buy Price'] }}</td>
+                            <td>${{ "%.2f" % trade['Sell Price'] }}</td>
+                            <td>{{ trade['Shares'] }}</td>
+                            <td>${{ "%.2f" % trade['Profit'] }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <div class="text-center mt-4">
+                <a href="/" class="btn btn-secondary">Run Another Backtest</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
